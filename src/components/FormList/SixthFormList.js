@@ -1,175 +1,62 @@
 import { useState } from "react";
-const SixthFormList = ({fieldsetDisable, setFieldSetDisable}) => {
-  const defaultWord = "apple";
-  const [default1Style, setDefault1Style] = useState("defaultInput");
-  const [default2Style, setDefault2Style] = useState("defaultInput");
-  const [default3Style, setDefault3Style] = useState("defaultInput");
-  const [default4Style, setDefault4Style] = useState("defaultInput");
-  const [default5Style, setDefault5Style] = useState("defaultInput");
-  const [firstWord, setFirstWord] = useState("");
-  const [secondWord, setSecondWord] = useState("");
-  const [thirdWord, setThirdWord] = useState("");
-  const [fourthWord, setFourthWord] = useState("");
-  const [fifthWord, setFifthWord] = useState("");
+import useForm from "../custom hook/useForm";
+import LayoutForm from "../Form Layout/LayoutForm";
+const SixthFormList = ({ fieldsetDisable, setFieldSetDisable }) => {
+  const [
+    defaultWord,
+    firstWord,
+    setFirstWord,
+    secondWord,
+    setSecondWord,
+    thirdWord,
+    setThirdWord,
+    fourthWord,
+    setFourthWord,
+    fifthWord,
+    setFifthWord,
+    default1Style,
+    default2Style,
+    default3Style,
+    default4Style,
+    default5Style,
+    newArr,
+    submitHookHandler,
+  ] = useForm();
 
-  const [sixthFieldSet,setSixthFieldSet] = useState("")
+  const [, setSixthFieldSet] = useState("");
 
   const submitHandler = (e) => {
     e.preventDefault();
-      setFieldSetDisable("disable")
-      const newArr = [firstWord, secondWord, thirdWord, fourthWord, fifthWord];
-      const defaultWordArr = defaultWord.split("").toString();
-      if (defaultWordArr === newArr.toString()) {
-        alert("WOOOOOOOOOOOOOOOW");
-        setSixthFieldSet("disable")
-      }else{
-        alert("Sorry you cannot solve the puzzle :(((((");
-      }
-      for (let i = 0; i < newArr.length; i++) {
-        if (newArr[i] === defaultWord[i]) {
-          switch (i) {
-            case 0:
-              setDefault1Style("success");
-              break;
-            case 1:
-              setDefault2Style("success");
-              break;
-  
-            case 2:
-              setDefault3Style("success");
-              break;
-  
-            case 3:
-              setDefault4Style("success");
-              break;
-  
-            case 4:
-              setDefault5Style("success");
-              break;
-  
-            default:
-              break;
-          }
-        } else {
-          for (let j = 0; j < newArr.length; j++) {
-            if (newArr[i] === defaultWord[j]) {
-              switch (i) {
-                case 0:
-                  setDefault1Style("close");
-                  break;
-                case 1:
-                  setDefault2Style("close");
-                  break;
-  
-                case 2:
-                  setDefault3Style("close");
-                  break;
-  
-                case 3:
-                  setDefault4Style("close");
-                  break;
-  
-                case 4:
-                  setDefault5Style("close");
-                  break;
-  
-                default:
-                  break;
-              }
-              break;
-            } else if (j === newArr.length - 1) {
-              switch (i) {
-                case 0:
-                  setDefault1Style("wrong");
-                  break;
-                case 1:
-                  setDefault2Style("wrong");
-                  break;
-  
-                case 2:
-                  setDefault3Style("wrong");
-                  break;
-  
-                case 3:
-                  setDefault4Style("wrong");
-                  break;
-  
-                case 4:
-                  setDefault5Style("wrong");
-                  break;
-  
-                default:
-                  break;
-              }
-            }
-          }
-        }
-      }
-    
+    setFieldSetDisable("disable");
+    const defaultWordArr = defaultWord.split("").toString();
+    if (defaultWordArr === newArr.toString()) {
+      alert("WOOOOOOOOOOOOOOOW");
+      setSixthFieldSet("disable");
+    } else {
+      alert("Sorry you cannot solve the puzzle :(((((");
+    }
+    submitHookHandler(newArr);
   };
   return (
-    <div className="formWord">
-      <form onSubmit={submitHandler}>
-        <fieldset disabled={fieldsetDisable}>
-          <input
-            type="text"
-            value={firstWord}
-            required
-            className={default1Style}
-            onChange={(e) => {
-              if (e.target.value.length === 1 || e.target.value.length === 0) {
-                setFirstWord(e.target.value);
-              }
-            }}
-          />
-          <input
-            className={default2Style}
-            type="text"
-            value={secondWord}
-            required
-            onChange={(e) => {
-              if (e.target.value.length === 1 || e.target.value.length === 0) {
-                setSecondWord(e.target.value);
-              }
-            }}
-          />
-          <input
-            type="text"
-            value={thirdWord}
-            required
-            className={default3Style}
-            onChange={(e) => {
-              if (e.target.value.length === 1 || e.target.value.length === 0) {
-                setThirdWord(e.target.value);
-              }
-            }}
-          />
-          <input
-            type="text"
-            value={fourthWord}
-            required
-            className={default4Style}
-            onChange={(e) => {
-              if (e.target.value.length === 1 || e.target.value.length === 0) {
-                setFourthWord(e.target.value);
-              }
-            }}
-          />
-          <input
-            type="text"
-            value={fifthWord}
-            required
-            className={default5Style}
-            onChange={(e) => {
-              if (e.target.value.length === 1 || e.target.value.length === 0) {
-                setFifthWord(e.target.value);
-              }
-            }}
-          />
-          <button>submit</button>
-        </fieldset>
-      </form>
-    </div>
+    <LayoutForm
+      submitHandler={submitHandler}
+      firstFieldSet={fieldsetDisable}
+      firstWord={firstWord}
+      default1Style={default1Style}
+      setFirstWord={setFirstWord}
+      secondWord={secondWord}
+      default2Style={default2Style}
+      setSecondWord={setSecondWord}
+      thirdWord={thirdWord}
+      default3Style={default3Style}
+      setThirdWord={setThirdWord}
+      fourthWord={fourthWord}
+      default4Style={default4Style}
+      setFourthWord={setFourthWord}
+      fifthWord={fifthWord}
+      default5Style={default5Style}
+      setFifthWord={setFifthWord}
+    />
   );
 };
 
